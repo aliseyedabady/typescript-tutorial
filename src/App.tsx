@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { castomRandom } from "./common/functions/random";
+import InputFiled from "./components/InputFiled";
+import { Todo } from "./models/todo";
 
-function App() {
+const App: React.FC = () => {
+  const [form, setForm] = useState<string>("");
+  const [list, setList] = useState<Todo[]>([]);
+  const handler = (): void => {
+    setList([...list, { title: form, id: castomRandom(), isDone: false }]);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <InputFiled form={form} setForm={setForm} handler={handler} />
     </div>
   );
-}
+};
 
 export default App;
